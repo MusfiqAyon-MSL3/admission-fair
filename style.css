@@ -1,6 +1,6 @@
 /* ===== ROOT THEME ===== */
 :root {
-  --maroonLight: #c72c41;
+  --maroonLight: #801322;
   --maroonDark: #7a0c19;
   --maroonMid: #a51f2d;
   --textLight: #f8f8f8;
@@ -166,12 +166,52 @@ select:focus {
   background: #eaeaea;
 }
 
+/* ===== FLOATING BUTTONS (Fixed & Responsive) ===== */
+.button-group {
+  position: fixed;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  z-index: 1500;
+}
+
+.button-group .fab {
+  width: auto;
+  padding: 0.9rem 1.3rem;
+  font-size: 0.95rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  background: #facc15;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-group .fab:hover {
+  background: #fde047;
+  transform: translateY(-3px);
+}
+
+.button-group .fab.vol {
+  background: #22c55e;
+  box-shadow: 0 6px 15px rgba(34, 197, 94, 0.5);
+}
+
+.button-group .fab.vol:hover {
+  background: #16a34a;
+}
+
+
 /* ===== TABLE ===== */
 .table-wrapper {
   overflow-x: auto;
 }
 table {
   width: 100%;
+  min-width: 700px; /* For horizontal scrolling on small screens */
   border-collapse: collapse;
   margin-top: 1.2rem;
   font-size: 1rem;
@@ -245,6 +285,18 @@ tbody tr:hover {
   background: #16a34a;
 }
 
+/* Floating buttons reposition on mobile */
+@media (max-width: 600px) {
+  #devBtn {
+    bottom: 5rem;
+    right: 1rem;
+  }
+  #volBtn {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
 /* ===== MODALS ===== */
 .modal {
   display: none;
@@ -255,6 +307,7 @@ tbody tr:hover {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  overflow-y: auto; /* স্ক্রল করার জন্য মূল modal-এও দিতে পারো */
 }
 .modal.show {
   display: flex;
@@ -270,10 +323,16 @@ tbody tr:hover {
   box-shadow: 0 25px 45px rgba(0,0,0,0.25);
   text-align: center;
   font-weight: 500;
+  max-height: 80vh;        /* ভিউপোর্ট উচ্চতা ৮০% */
+  overflow-y: auto;        /* verticle স্ক্রল */
 }
 .vol-content {
   max-width: 900px;
+  max-height: 80vh;        /* বড় modal এর জন্য */
+  overflow-y: auto;
 }
+
+/* ===== CLOSE BUTTON ===== */
 .close {
   position: absolute;
   top: 1rem;
@@ -284,6 +343,8 @@ tbody tr:hover {
   color: var(--maroonMid);
   user-select: none;
 }
+
+/* ===== AVATAR ===== */
 .avatar {
   width: 140px;
   height: 140px;
@@ -292,6 +353,8 @@ tbody tr:hover {
   margin-bottom: 1rem;
   box-shadow: 0 4px 15px var(--shadowDark);
 }
+
+/* ===== SOCIAL LINKS ===== */
 .social {
   display: flex;
   justify-content: center;
@@ -315,49 +378,29 @@ tbody tr:hover {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1.2rem;
   margin-top: 1.4rem;
+  max-height: 70vh;       /* grid এর উচ্চতা সীমাবদ্ধ করতে */
+  overflow-y: auto;       /* স্ক্রল বার আসবে */
 }
 .vol-grid img {
   width: 100%;
   border-radius: 0.85rem;
   object-fit: cover;
   box-shadow: 0 6px 15px var(--shadowDark);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 .vol-grid img:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 25px var(--shadowDark);
+}
+.vol-grid img:focus,
+.vol-grid img.active {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px var(--maroonDark);
+  outline: 3px solid var(--maroonMid);
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-  .btn-primary, .btn-secondary {
-    width: 100%;
-    font-size: 1.05rem;
-  }
-  .modal-content {
-    max-width: 90%;
-    padding: 1.4rem 1.8rem;
-  }
-  .fab {
-    right: 1rem;
-    bottom: 1rem;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.9rem;
-  }
-  h1 {
-    font-size: 1.7rem;
-  }
-  h2 {
-    font-size: 1.4rem;
-  }
-  table {
-    font-size: 0.85rem;
-  }
-}
-
 @media (max-width: 600px) {
   .grid-2 {
     grid-template-columns: 1fr;
@@ -368,12 +411,6 @@ tbody tr:hover {
   }
   table {
     font-size: 0.85rem;
-  }
-  .fab {
-    right: 1rem;
-    bottom: 1rem;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.9rem;
   }
   .modal-content {
     max-width: 90%;
@@ -387,5 +424,65 @@ tbody tr:hover {
   }
   .vol-grid {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+/* ===== UNIVERSITY NAME FONT ===== */
+@font-face {
+  font-family: 'superstar m54';
+  src: url('assets/fonts/superstar-m54.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.uni-name-text {
+  font-family: 'superstar m54', sans-serif;
+  font-size: 1.5rem;
+  color: var(--textLight);
+  text-shadow: 2px 2px 6px var(--shadowDark);
+  margin-bottom: 0.8rem;
+  user-select: none;
+}
+/* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 600px) {
+  body {
+    padding: 0.5rem;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  input, select, button {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .card {
+    padding: 1rem 1.2rem;
+    margin: 0.5rem auto;
+  }
+
+  table, th, td {
+    font-size: 0.8rem;
+  }
+
+  .fab {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .vol-grid {
+    gap: 0.8rem;
+  }
+
+  .vol-grid img {
+    border-radius: 0.5rem;
   }
 }
