@@ -429,21 +429,21 @@ tbody tr:hover {
 
 /* ===== UNIVERSITY NAME FONT ===== */
 @font-face {
-  font-family: 'superstar m54';
-  src: url('assets/fonts/superstar-m54.ttf') format('truetype');
+  font-family: 'Superstar M54';
+  src: url('https://cdn.statically.io/gh/musfiqayon/fonts/main/superstar_m54.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 
 .uni-name-text {
-  font-family: 'superstar m54', sans-serif;
-  font-size: 1.5rem;
-  color: var(--textLight);
-  text-shadow: 2px 2px 6px var(--shadowDark);
-  margin-bottom: 0.8rem;
-  user-select: none;
+  font-family: 'Superstar M54', sans-serif;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
+
+
 /* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 600px) {
   body {
