@@ -357,3 +357,35 @@ tbody tr:hover {
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 600px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  input, select, .btn-primary, .btn-secondary {
+    width: 100%;
+    font-size: 1.05rem;
+  }
+  table {
+    font-size: 0.85rem;
+  }
+  .fab {
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  .modal-content {
+    max-width: 90%;
+    padding: 1.4rem 1.8rem;
+  }
+  h1 {
+    font-size: 1.7rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  .vol-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
