@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admission Fair – CSE Stall</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="topbar">
+    <img src="src/assets/logo.png" alt="Logo" class="logo" />
+    <img src="src/assets/university-name.png" alt="University Name" class="uni-name" />
+    <h1>Admission Fair – CSE Stall</h1>
+  </div>
+
+  <!-- ===== Visitor Entry Form ===== -->
+  <div class="card">
+    <h2>Visitor Entry Form</h2>
+    <form id="entryForm">
+      <input type="hidden" name="visitorId" />
+      <div class="grid-2">
+        <input type="text" id="name" name="name" placeholder="Full Name" required />
+        <input type="text" id="phone" name="phone" placeholder="Phone Number" required />
+        <input type="text" id="address" name="address" placeholder="Address" required />
+        <input type="number" id="sscGPA" name="sscGPA" step="0.01" placeholder="SSC GPA" required />
+        <input type="number" id="hscGPA" name="hscGPA" step="0.01" placeholder="HSC GPA" required />
+        <select id="volunteer" name="volunteer" required>
+          <option value="">Select Volunteer</option>
+          <option>Israt Jahan Nijhum</option>
+          <option>Munira Akter Nuri</option>
+          <option>Tabassum Anjum Tura</option>
+          <option>Meherun Nesa Shawon</option>
+          <option>Md. Amran</option>
+          <option>MD Taimia Seam</option>
+          <option>Syed Riam Mithila</option>
+          <option>Musfiq Ayon</option>
+          <option>Afiya Akter Sourovie</option>
+          <option>Tasfia Tusi</option>
+          <option>Jannatul Fiza</option>
+        </select>
+      </div>
+      <div class="switches">
+        <label><input type="checkbox" name="formPurchased" /> Form Purchased</label>
+        <label><input type="checkbox" name="formSubmitted" /> Form Submitted</label>
+      </div>
+      <button type="submit" class="btn-primary" id="saveBtn">Save</button>
+      <button type="button" class="btn-secondary" id="cancelBtn" hidden>Cancel</button>
+    </form>
+  </div>
+
+  <!-- ===== Live Visitor List ===== -->
+  <div class="card">
+    <h2>Live Visitor List</h2>
+    <div class="table-wrapper">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Total GPA</th>
+            <th>Form Purchased</th>
+            <th>Form Submitted</th>
+            <th>Volunteer</th>
+            <th>Entry Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="foot">Made with ♥ by Musfiq Ayon</p>
+
+  <!-- ===== Floating Buttons ===== -->
+  <button id="devBtn" class="fab">Contact the Dev</button>
+  <button id="volBtn" class="fab vol">Volunteers</button>
+
+  <!-- ===== Developer Modal ===== -->
+  <div class="modal" id="devModal">
+    <div class="modal-content">
+      <span class="close" data-close="devModal">×</span>
+      <img src="src/assets/Musfiq_Ayon.jpg" alt="Musfiq Ayon" class="avatar" />
+      <h2>Musfiq Ayon</h2>
+      <p>University of Brahmanbaria</p>
+      <p>Dept. of CSE – Batch 251</p>
+      <p>📞 +8801701606009</p>
+      <p>✉️ musfiq.ayon.2022@gmail.com</p>
+      <div class="social">
+        <a href="https://www.facebook.com/musfiq.ayon.10/" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/ayon.musfiq/" target="_blank">Instagram</a>
+        <a href="https://wa.me/+8801701606009" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Volunteers Modal ===== -->
+  <div class="modal" id="volModal">
+    <div class="modal-content vol-content">
+      <span class="close" data-close="volModal">×</span>
+      <h2>Our Volunteers</h2>
+      <div class="vol-grid" id="volGrid">
+        <!-- Dynamically Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Scripts ===== -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
