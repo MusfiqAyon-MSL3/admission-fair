@@ -5,6 +5,7 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
   doc,
   Timestamp
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
@@ -37,6 +38,7 @@ const form = document.getElementById('entryForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const visitorId = form.visitorId.value; // hidden input
   const data = {
     name: form.name.value,
     phone: form.phone.value,
@@ -51,9 +53,18 @@ form.addEventListener('submit', async (e) => {
   };
 
   try {
-    await addDoc(collection(db, "visitors"), data);
-    alert("Visitor saved!");
+    if (visitorId) {
+      await updateDoc(doc(db, "visitors", visitorId), data);
+      alert("Visitor updated!");
+    } else {
+      await addDoc(collection(db, "visitors"), data);
+      alert("Visitor saved!");
+    }
+
     form.reset();
+    form.visitorId.value = '';
+    document.getElementById('saveBtn').textContent = 'Save';
+    document.getElementById('cancelBtn').hidden = true;
     loadVisitors();
   } catch (err) {
     console.error("Error saving:", err);
@@ -101,7 +112,39 @@ window.deleteVisitor = async function (id) {
   }
 };
 
-// ===== Edit Visitor (Optional Placeholder) =====
-window.editVisitor = function (id) {
-  alert("Edit not implemented yet.");
+// ===== Edit Visitor =====
+window.editVisitor = async function (id) {
+  const docRef = doc(db, "visitors", id);
+  const docSnap = await getDocs(collection(db, 'visitors'));
+
+  let data;
+  docSnap.forEach(d => {
+    if (d.id === id) {
+      data = d.data();
+    }
+  });
+
+  if (!data) return alert("Visitor not found!");
+
+  // Prefill form
+  form.name.value = data.name;
+  form.phone.value = data.phone;
+  form.address.value = data.address;
+  form.sscGPA.value = data.sscGPA;
+  form.hscGPA.value = data.hscGPA;
+  form.formPurchased.checked = data.formPurchased;
+  form.formSubmitted.checked = data.formSubmitted;
+  form.volunteer.value = data.volunteer;
+
+  form.visitorId.value = id; // hidden input
+  document.getElementById('saveBtn').textContent = 'Update';
+  document.getElementById('cancelBtn').hidden = false;
 };
+
+// ===== Cancel Button =====
+document.getElementById('cancelBtn').addEventListener('click', () => {
+  form.reset();
+  form.visitorId.value = '';
+  document.getElementById('saveBtn').textContent = 'Save';
+  document.getElementById('cancelBtn').hidden = true;
+});
