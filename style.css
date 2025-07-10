@@ -486,3 +486,23 @@ tbody tr:hover {
     border-radius: 0.5rem;
   }
 }
+
+/* ===== Print Button Custom Style ===== */
+.print-btn {
+  margin-top: 1.2rem;
+  max-width: 300px;
+  background: linear-gradient(145deg, #15803d, #166534);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  padding: 0.9rem 1.3rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.print-btn:hover {
+  background: linear-gradient(145deg, #22c55e, #16a34a);
+  transform: translateY(-2px);
+}
