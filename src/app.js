@@ -148,3 +148,61 @@ document.getElementById('cancelBtn').addEventListener('click', () => {
   document.getElementById('saveBtn').textContent = 'Save';
   document.getElementById('cancelBtn').hidden = true;
 });
+
+document.getElementById('printBtn').addEventListener('click', async () => {
+  const snapshot = await getDocs(collection(db, 'visitors'));
+
+  let content = `
+    <html>
+    <head>
+      <title>Visitor Report</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h2 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #999; padding: 8px; text-align: center; }
+        th { background: #f4f4f4; }
+      </style>
+    </head>
+    <body>
+      <h2>Visitor Report – Admission Fair</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Total GPA</th>
+            <th>Form Purchased</th>
+            <th>Form Submitted</th>
+            <th>Volunteer</th>
+            <th>Entry Time</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    content += `
+      <tr>
+        <td>${data.name}</td>
+        <td>${data.phone}</td>
+        <td>${data.address}</td>
+        <td>${data.totalGPA}</td>
+        <td>${data.formPurchased ? '✔️' : '❌'}</td>
+        <td>${data.formSubmitted ? '✔️' : '❌'}</td>
+        <td>${data.volunteer}</td>
+        <td>${data.time.toDate().toLocaleString()}</td>
+      </tr>
+    `;
+  });
+
+  content += `</tbody></table></body></html>`;
+
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(content);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+});
